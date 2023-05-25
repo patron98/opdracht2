@@ -21,7 +21,7 @@ public class App
         String url = "https://opensource-demo.orangehrmlive.com";
         driver.get(url);
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(1));
         WebElement username = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='username']")));
         WebElement password = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='password']")));
         WebElement loginButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
@@ -34,9 +34,23 @@ public class App
 
 
         WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
-        searchBar.sendKeys("directory");
+        searchBar.sendKeys("admin");
 
-        WebElement directoryTab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Directory']")));
+        WebElement directoryTab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Admin']")));
         directoryTab.click();
+
+        WebElement addUser = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='orangehrm-header-container']//button[contains(., 'Add')]")));
+        addUser.click();
+
+        WebElement dropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-select-text--after']//i[@class='oxd-icon bi-caret-down-fill oxd-select-text--arrow']")));
+        dropdown.click();
+
+        WebElement adminOption = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-select-dropdown']//div[@class='oxd-select-option']//span[contains(., 'Admin')]")));
+        adminOption.click();
+
+
+
+        //WebElement searchEmployee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
+        //searchEmployee.sendKeys("James Bond");
     }
 }
