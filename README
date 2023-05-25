@@ -1,0 +1,10 @@
+https://opensource-demo.orangehrmlive.com
+
+-login doen
+-in de sidebar search zoeken naar directory
+-gevonden item in de sidebar klikken
+-op de directory pagina een employee toevoegen
+-Zoek naar James Bond met de zoekbalk bovenaan
+-Check of er een persoon bestaat in de directory
+
+Gebruik alle dingetjes die je tot nu toe hebt geleerd: Selenium en junit
