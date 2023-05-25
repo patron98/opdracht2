@@ -42,12 +42,29 @@ public class App
         WebElement addUser = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='orangehrm-header-container']//button[contains(., 'Add')]")));
         addUser.click();
 
-        WebElement dropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-select-text--after']//i[@class='oxd-icon bi-caret-down-fill oxd-select-text--arrow']")));
-        dropdown.click();
+        WebElement adminDropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='oxd-select-wrapper'])[1]")));
+        adminDropdown.click();
 
-        WebElement adminOption = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-select-dropdown']//div[@class='oxd-select-option']//span[contains(., 'Admin')]")));
+        WebElement adminOption = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='oxd-select-wrapper'])[1]//span[contains(text(), 'Admin')]")));
         adminOption.click();
 
+        WebElement enableDropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='oxd-select-wrapper'])[2]")));
+        enableDropdown.click();
+
+        WebElement enableOption = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='oxd-select-wrapper'])[2]//span[contains(text(), 'Enabled')]")));
+        enableOption.click();
+
+        WebElement name = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
+        name.sendKeys("Orange Test");
+
+        WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'oxd-input-group')]//input[contains(@class, 'oxd-input--active')]")));
+        usernameField.sendKeys("James Bond");
+
+        WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@class, 'oxd-form-row')]//input[contains(@type, 'password')])[1]")));
+        passwordField.sendKeys("password123");
+
+        WebElement passwordField2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@class, 'oxd-form-row')]//input[contains(@type, 'password')])[2]")));
+        passwordField2.sendKeys("password123");
 
 
         //WebElement searchEmployee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
