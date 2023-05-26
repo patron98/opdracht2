@@ -57,6 +57,9 @@ public class App
         WebElement name = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
         name.sendKeys("Orange Test");
 
+        WebElement autocompleteOption = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'oxd-autocomplete-dropdown')]//span[contains(text(), 'Orange  Test')]")));
+        autocompleteOption.click();
+
         WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'oxd-input-group')]//input[contains(@class, 'oxd-input--active')]")));
         usernameField.sendKeys("James Bond");
 
@@ -65,6 +68,9 @@ public class App
 
         WebElement passwordField2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@class, 'oxd-form-row')]//input[contains(@type, 'password')])[2]")));
         passwordField2.sendKeys("password123");
+
+        WebElement save = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
+        save.click();
 
 
         //WebElement searchEmployee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
