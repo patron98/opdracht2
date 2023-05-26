@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 /**
  * Hello world!
@@ -34,11 +35,46 @@ public class App
 
 
         WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
-        searchBar.sendKeys("admin");
+        searchBar.sendKeys("PIM");
 
-        WebElement directoryTab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Admin']")));
+        WebElement directoryTab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='PIM']")));
         directoryTab.click();
 
+        WebElement addEmployee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(., 'Add Employee')]")));
+        addEmployee.click();
+
+        WebElement firstname = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='firstName']")));
+        firstname.sendKeys("James");
+
+        WebElement lastname = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='lastName']")));
+        lastname.sendKeys("Bond");
+
+        WebElement save = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
+        save.click();
+
+        WebElement employeeList = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(., 'Employee List')]")));
+        employeeList.click();
+
+        WebElement searchName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
+        searchName.sendKeys("fhoshfd");
+
+        WebElement search = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
+        search.click();
+
+        WebElement searchResults = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-table-card']")));
+
+        System.out.println("The element is " + (searchResults.isDisplayed() ? "displayed" : "not displayed"));
+
+/*
+        WebElement newSearchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
+        newSearchBar.sendKeys("Directory");
+
+        WebElement newDirectoryTab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Directory']")));
+        newDirectoryTab.click();
+
+ */
+
+/*
         WebElement addUser = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='orangehrm-header-container']//button[contains(., 'Add')]")));
         addUser.click();
 
@@ -75,5 +111,7 @@ public class App
 
         //WebElement searchEmployee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
         //searchEmployee.sendKeys("James Bond");
+
+ */
     }
 }
