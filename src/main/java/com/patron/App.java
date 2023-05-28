@@ -56,7 +56,7 @@ public class App
         employeeList.click();
 
         WebElement searchName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
-        searchName.sendKeys("fhoshfd");
+        searchName.sendKeys("James bond");
 
         WebElement search = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
         search.click();
