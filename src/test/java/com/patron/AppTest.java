@@ -153,7 +153,6 @@ public class AppTest {
 
         int maxRetries = 3;
         int retryCount = 0;
-        boolean isActionSuccessful = false;
 
         while (retryCount < maxRetries) {
             try {
@@ -166,8 +165,6 @@ public class AppTest {
 
                     searchButton.click();
                 }
-
-                isActionSuccessful = true;
                 break;
             } catch (StaleElementReferenceException e) {
                 retryCount++;

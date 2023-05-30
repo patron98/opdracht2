@@ -46,7 +46,7 @@ public class App
 
         WebElement save = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
         save.click();
-        
+
         driver.close();
 
     }
