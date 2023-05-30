@@ -47,6 +47,31 @@ public class App
         WebElement save = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
         save.click();
 
+        WebElement employeeList = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(., 'Employee List')]")));
+        employeeList.click();
+
+        WebElement searchNameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
+        searchNameInput.sendKeys("James");
+
+        //By autocompleteOptionLocator = By.xpath("//div[@role='option' and contains(@class, 'oxd-autocomplete-option')]//span[contains(text(), 'James  Bond')]");
+        //WebElement autocompleteOption = wait.until(ExpectedConditions.elementToBeClickable(autocompleteOptionLocator));
+        //autocompleteOption.click();
+
+        WebElement searchButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
+        searchButton.click();
+
+        WebElement deleteUser = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//i[@class='oxd-icon bi-trash']")));
+
+        while(deleteUser.isDisplayed()) {
+            deleteUser.click();
+
+            WebElement delete = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//i[@class='oxd-icon bi-trash oxd-button-icon']")));
+            delete.click();
+
+            searchButton.click();
+
+        }
+
         driver.close();
 
 /*
