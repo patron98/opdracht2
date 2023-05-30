@@ -1,10 +1,10 @@
 package com.patron;
 
-import static org.junit.Assert.assertTrue;
-
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,9 +17,10 @@ import java.time.Duration;
 public class AppTest {
     private final WebDriver driver = new ChromeDriver();;
     private final WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+    private WebElement searchResults;
 
-    @Before
-    public void setUp(){
+        @Given("I am logged in as an admin")
+        public void loginAsAdmin(){
         String url = "https://opensource-demo.orangehrmlive.com";
         driver.get(url);
 
@@ -32,7 +33,10 @@ public class AppTest {
         password.sendKeys("admin123");
         loginButton.click();
         wait.until(ExpectedConditions.stalenessOf(loginButton));
+        }
 
+        @When("I add a new employee with name {string}")
+        public void addUser(String employeeName){
         WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
         searchBar.sendKeys("PIM");
 
@@ -53,8 +57,8 @@ public class AppTest {
 
     }
 
-    @Test
-    public void checkIfUserExists(){
+    @Then("The new employee should be added with name {string}")
+    public void searchEmployee(String employeeName){
 
         WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
         searchBar.sendKeys("PIM");
@@ -66,18 +70,20 @@ public class AppTest {
         employeeList.click();
 
         WebElement searchName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
-        searchName.sendKeys("james bond");
+        searchName.sendKeys(employeeName);
 
         WebElement search = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
         search.click();
 
-        WebElement searchResults = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-table-card']")));
+        searchResults = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-table-card']")));
 
         Assert.assertTrue(searchResults.isDisplayed());
+
+
     }
 
-    @Test
-    public void checkDirectory(){
+    @When("I search for the employee with name {string} in Directory")
+    public void searchEmployeeDirectory(String employeeName){
         WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
         searchBar.sendKeys("Directory");
 
@@ -85,7 +91,7 @@ public class AppTest {
         directoryTab.click();
 
         WebElement searchNameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
-        searchNameInput.sendKeys("James");
+        searchNameInput.sendKeys(employeeName);
 
         By autocompleteOptionLocator = By.xpath("//div[@role='option' and contains(@class, 'oxd-autocomplete-option')]//span[contains(text(), 'James  Bond')]");
         WebElement autocompleteOption = wait.until(ExpectedConditions.elementToBeClickable(autocompleteOptionLocator));
@@ -95,41 +101,18 @@ public class AppTest {
         searchButton.click();
 
         By directoryCardLocator = By.xpath("//div[contains(@class, 'oxd-grid-item')]");
-        WebElement directoryCard = wait.until(ExpectedConditions.visibilityOfElementLocated(directoryCardLocator));
-
-        Assert.assertTrue(directoryCard.isDisplayed());
-
+        searchResults = wait.until(ExpectedConditions.visibilityOfElementLocated(directoryCardLocator));
 
     }
 
-    @Test
-    public void falseUserCheck() {
-        WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
-        searchBar.sendKeys("PIM");
-
-        WebElement directoryTab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='PIM']")));
-        directoryTab.click();
-
-        WebElement employeeList = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(., 'Employee List')]")));
-        employeeList.click();
-
-        WebElement searchName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
-        searchName.sendKeys("marko borsato");
-
-        WebElement search = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
-        search.click();
-
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-table-card']")));
-
-        } catch (NoSuchElementException | TimeoutException e) {
-            Assert.assertTrue(true);
-        }
+    @Then("I should see the search results")
+    public void verifySearchResults() {
+        Assert.assertTrue(searchResults.isDisplayed());
     }
 
 
-    @After
-    public void teardown() throws InterruptedException {
+    @When("I delete the employee with name {string}")
+    public void deleteEmployee(String employeeName){
         WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
         searchBar.sendKeys("PIM");
 
@@ -140,7 +123,7 @@ public class AppTest {
         employeeList.click();
 
         WebElement searchNameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
-        searchNameInput.sendKeys("James");
+        searchNameInput.sendKeys(employeeName);
 
         By autocompleteOptionLocator = By.xpath("//div[@role='option' and contains(@class, 'oxd-autocomplete-option')]//span[contains(text(), 'James  Bond')]");
         WebElement autocompleteOption = wait.until(ExpectedConditions.elementToBeClickable(autocompleteOptionLocator));
@@ -168,10 +151,44 @@ public class AppTest {
                 break;
             } catch (StaleElementReferenceException e) {
                 retryCount++;
-                Thread.sleep(1000);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
 
+
+    }
+    @Then("the employee should no longer be listed")
+    public void verifyEmployeeNotListed() {
+        WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
+        searchBar.sendKeys("PIM");
+
+        WebElement directoryTab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='PIM']")));
+        directoryTab.click();
+
+        WebElement employeeList = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(., 'Employee List')]")));
+        employeeList.click();
+
+        WebElement searchNameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
+        searchNameInput.sendKeys("James Bond");
+
+        WebElement searchButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
+        searchButton.click();
+
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='oxd-table-card']")));
+            Assert.assertTrue(true); // Employee is not listed
+        } catch (NoSuchElementException | TimeoutException e) {
+            Assert.fail("Employee is still listed");
+        }
+    }
+
+    @After
+    public void teardown() {
         driver.close();
     }
+
 }
