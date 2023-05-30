@@ -19,8 +19,8 @@ public class AppTest {
     private final WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     private WebElement searchResults;
 
-        @Given("I am logged in as an admin")
-        public void loginAsAdmin(){
+    @Given("I am logged in as an admin")
+    public void loginAsAdmin(){
         String url = "https://opensource-demo.orangehrmlive.com";
         driver.get(url);
 
@@ -33,10 +33,10 @@ public class AppTest {
         password.sendKeys("admin123");
         loginButton.click();
         wait.until(ExpectedConditions.stalenessOf(loginButton));
-        }
+    }
 
-        @When("I add a new employee with name {string}")
-        public void addUser(String employeeName){
+    @When("I add a new employee with name {string}")
+    public void addUser(String employeeName){
         WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
         searchBar.sendKeys("PIM");
 
@@ -158,8 +158,6 @@ public class AppTest {
                 }
             }
         }
-
-
     }
     @Then("the employee should no longer be listed")
     public void verifyEmployeeNotListed() {
