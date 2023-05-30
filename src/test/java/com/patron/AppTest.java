@@ -16,7 +16,7 @@ import java.time.Duration;
 
 public class AppTest {
     private final WebDriver driver = new ChromeDriver();;
-    private final WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(1));
+    private final WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
     @Before
     public void setUp(){
@@ -33,6 +33,11 @@ public class AppTest {
         loginButton.click();
         wait.until(ExpectedConditions.stalenessOf(loginButton));
 
+    }
+
+    @Test
+    public void checkIfUserExists(){
+
         WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
         searchBar.sendKeys("PIM");
 
@@ -41,11 +46,6 @@ public class AppTest {
 
         WebElement employeeList = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(., 'Employee List')]")));
         employeeList.click();
-
-    }
-
-    @Test
-    public void checkIfUserExists(){
 
         WebElement searchName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
         searchName.sendKeys("james bond");
@@ -56,6 +56,32 @@ public class AppTest {
         WebElement searchResults = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='oxd-table-card']")));
 
         Assert.assertTrue(searchResults.isDisplayed());
+    }
+
+    @Test
+    public void checkDirectory(){
+        WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
+        searchBar.sendKeys("Directory");
+
+        WebElement directoryTab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Directory']")));
+        directoryTab.click();
+
+        WebElement searchNameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
+        searchNameInput.sendKeys("James");
+
+        By autocompleteOptionLocator = By.xpath("//div[@role='option' and contains(@class, 'oxd-autocomplete-option')]//span[contains(text(), 'James  Bond')]");
+        WebElement autocompleteOption = wait.until(ExpectedConditions.elementToBeClickable(autocompleteOptionLocator));
+        autocompleteOption.click();
+
+        WebElement searchButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
+        searchButton.click();
+
+        By directoryCardLocator = By.xpath("//div[contains(@class, 'oxd-grid-item')]");
+        WebElement directoryCard = wait.until(ExpectedConditions.visibilityOfElementLocated(directoryCardLocator));
+
+        Assert.assertTrue(directoryCard.isDisplayed());
+
+
     }
 
     @Test
