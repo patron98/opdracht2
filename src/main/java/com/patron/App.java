@@ -46,78 +46,8 @@ public class App
 
         WebElement save = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
         save.click();
-
-        WebElement employeeList = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(., 'Employee List')]")));
-        employeeList.click();
-
-        WebElement searchNameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
-        searchNameInput.sendKeys("James");
-
-        //By autocompleteOptionLocator = By.xpath("//div[@role='option' and contains(@class, 'oxd-autocomplete-option')]//span[contains(text(), 'James  Bond')]");
-        //WebElement autocompleteOption = wait.until(ExpectedConditions.elementToBeClickable(autocompleteOptionLocator));
-        //autocompleteOption.click();
-
-        WebElement searchButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
-        searchButton.click();
-
-        WebElement deleteUser = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//i[@class='oxd-icon bi-trash']")));
-
-        while(deleteUser.isDisplayed()) {
-            deleteUser.click();
-
-            WebElement delete = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//i[@class='oxd-icon bi-trash oxd-button-icon']")));
-            delete.click();
-
-            searchButton.click();
-
-        }
-
+        
         driver.close();
 
-/*
-        WebElement newSearchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
-        newSearchBar.sendKeys("Directory");
-
-        WebElement newDirectoryTab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Directory']")));
-        newDirectoryTab.click();
-
-        WebElement addUser = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='orangehrm-header-container']//button[contains(., 'Add')]")));
-        addUser.click();
-
-        WebElement adminDropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='oxd-select-wrapper'])[1]")));
-        adminDropdown.click();
-
-        WebElement adminOption = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='oxd-select-wrapper'])[1]//span[contains(text(), 'Admin')]")));
-        adminOption.click();
-
-        WebElement enableDropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='oxd-select-wrapper'])[2]")));
-        enableDropdown.click();
-
-        WebElement enableOption = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='oxd-select-wrapper'])[2]//span[contains(text(), 'Enabled')]")));
-        enableOption.click();
-
-        WebElement name = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
-        name.sendKeys("Orange Test");
-
-        WebElement autocompleteOption = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'oxd-autocomplete-dropdown')]//span[contains(text(), 'Orange  Test')]")));
-        autocompleteOption.click();
-
-        WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'oxd-input-group')]//input[contains(@class, 'oxd-input--active')]")));
-        usernameField.sendKeys("James Bond");
-
-        WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@class, 'oxd-form-row')]//input[contains(@type, 'password')])[1]")));
-        passwordField.sendKeys("password123");
-
-        WebElement passwordField2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@class, 'oxd-form-row')]//input[contains(@type, 'password')])[2]")));
-        passwordField2.sendKeys("password123");
-
-        WebElement save = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
-        save.click();
-
-
-        //WebElement searchEmployee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
-        //searchEmployee.sendKeys("James Bond");
-
- */
     }
 }
