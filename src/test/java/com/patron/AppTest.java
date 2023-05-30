@@ -33,6 +33,24 @@ public class AppTest {
         loginButton.click();
         wait.until(ExpectedConditions.stalenessOf(loginButton));
 
+        WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
+        searchBar.sendKeys("PIM");
+
+        WebElement directoryTab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='PIM']")));
+        directoryTab.click();
+
+        WebElement addEmployee = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(., 'Add Employee')]")));
+        addEmployee.click();
+
+        WebElement firstname = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='firstName']")));
+        firstname.sendKeys("James");
+
+        WebElement lastname = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='lastName']")));
+        lastname.sendKeys("Bond");
+
+        WebElement save = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
+        save.click();
+
     }
 
     @Test
@@ -86,6 +104,15 @@ public class AppTest {
 
     @Test
     public void falseUserCheck() {
+        WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
+        searchBar.sendKeys("PIM");
+
+        WebElement directoryTab = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='PIM']")));
+        directoryTab.click();
+
+        WebElement employeeList = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(., 'Employee List')]")));
+        employeeList.click();
+
         WebElement searchName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Type for hints...']")));
         searchName.sendKeys("marko borsato");
 
