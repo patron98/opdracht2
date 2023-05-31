@@ -1,7 +1,7 @@
 Feature: User Management
   Scenario: Adding new employee
     Given I am logged in as an admin
-    When I add a new employee with name "James Bond"
+    When I add a new employee with name "James" "Bond"
     Then The new employee should be added with name "James Bond"
 
   Scenario: Searching for employee in directory
