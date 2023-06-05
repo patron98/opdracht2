@@ -11,4 +11,5 @@ import org.junit.runner.RunWith;
         plugin = {"json:target/cucumber-report.json", "junit:target/cucumber-reports"}
 )
 public class AppTestRunner {
+
 }
